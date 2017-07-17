@@ -7,12 +7,13 @@ ENV LUAROCKS_VERSION=2.4.1 \
  OPENRESTY_PREFIX=/usr/local/openresty
 
 RUN echo "==> Installing dependencies..." \
+ && sed -i -e "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories \
  && apk update \
  && apk add --virtual .build-deps \
     make gcc musl-dev curl wget git unzip openssl-dev \
  && apk add openssl dnsmasq perl \
  && apk add --upgrade gd busybox libxslt libxml2 \
- && apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/community dumb-init \
+ && apk add --no-cache -X http://mirrors.aliyun.com/alpine/edge/community dumb-init \
  && echo "==> Configuring LuaRocks..." \
  && mkdir -p /root/luarocks \
  && cd /root/luarocks \
